@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>A Very Small Test</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Ken Butler" />
+    <meta name="date" content="2018-10-08" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# A Very Small Test
+## with xaringan
+### Ken Butler
+### 2018-10-08
+
+---
+
+
+
+
+
+# This is a slide title
+
+- with some bullet points under
+- a second one
+- even a third one
+- maybe the text should be bigger
+
+---
+
+# This is some R code
+
+
+
+
+
+```r
+my_url="http://www.utsc.utoronto.ca/~butler/c32/soap.txt"
+soap=read_delim(my_url," ")
+```
+
+```
+## Parsed with column specification:
+## cols(
+##   case = col_integer(),
+##   scrap = col_integer(),
+##   speed = col_integer(),
+##   line = col_character()
+## )
+```
+
+---
+
+# And this is the output it produces
+
+
+```r
+soap
+```
+
+```
+## # A tibble: 27 x 4
+##     case scrap speed line 
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;
+##  1     1   218   100 a    
+##  2     2   248   125 a    
+##  3     3   360   220 a    
+##  4     4   351   205 a    
+##  5     5   470   300 a    
+##  6     6   394   255 a    
+##  7     7   332   225 a    
+##  8     8   321   175 a    
+##  9     9   410   270 a    
+## 10    10   260   170 a    
+## # ... with 17 more rows
+```
+
+---
+
+# and here is what it looks like in R Studio
+
+
+... after you click the "play button":
+
+![](ss.png)
+
+
+---
+
+# Idea from Garrick Aden-Buie
+
+.pull-left[
+
+```r
+my_url="http://www.utsc.utoronto.ca/~butler/c32/soap.txt"
+soap=read_delim(my_url," ")
+soap
+```
+
+I'm not sure I like *this*, but it's a cool idea.
+
+]
+
+.pull-right[
+
+```
+## Parsed with column specification:
+## cols(
+##   case = col_integer(),
+##   scrap = col_integer(),
+##   speed = col_integer(),
+##   line = col_character()
+## )
+```
+
+```
+## # A tibble: 27 x 4
+##     case scrap speed line 
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;
+##  1     1   218   100 a    
+##  2     2   248   125 a    
+##  3     3   360   220 a    
+##  4     4   351   205 a    
+##  5     5   470   300 a    
+##  6     6   394   255 a    
+##  7     7   332   225 a    
+##  8     8   321   175 a    
+##  9     9   410   270 a    
+## 10    10   260   170 a    
+## # ... with 17 more rows
+```
+]
+
+---
+
+# Making a plot
+
+using the same "delayed output" thing:
+
+
+```r
+ggplot(soap, aes(y=scrap, x=speed, colour=line))+
+  geom_point()+
+  geom_smooth(method="lm")
+```
+
+---
+
+# The plot
+
+![](my_test_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+
+---
+
+# The plot, with comments
+
+
+.pull-left[
+![](my_test_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+
+- the red line is above the blue one
+- more scrap at any given speed on line A than line B
+- scrap increases with speed (for both lines)
+- two lines almost parallel: scrap increases with speed at same rate for both lines
+
+]
+
+---
+
+# Another way to do the same thing 
+
+... without the "envelopes" this time:
+
+
+```r
+ggplot(soap, aes(y=scrap, x=speed, colour=line))+
+  geom_point()+
+* geom_smooth(method="lm", se=F) 
+```
+
+The last line changed, so I highlighted it. (It took a bit of fiddling to get the alignment to work.)
+
+---
+
+# and now to show it
+
+![](my_test_files/figure-html/lab3-1.png)
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

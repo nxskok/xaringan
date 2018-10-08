@@ -1,0 +1,19 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r, include=FALSE}
+library(tidyverse)
+```
+
+
+```{r}
+my_url="http://www.utsc.utoronto.ca/~butler/c32/soap.txt"
+soap=read_delim(my_url," ")
+```
+
+```{r}
+soap
+```
+
